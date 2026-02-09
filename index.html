@@ -9,7 +9,7 @@
         /* --- ESTILOS GERAIS --- */
         :root {
             --bg-color: #0d0d0d;
-            --card-bg: #1a1a1a;
+            --card-bg: #161616;
             --text-main: #ffffff;
             --text-secondary: #b3b3b3;
             --accent-purple: #8a2be2;
@@ -20,12 +20,19 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 80px; }
+        
+        body { 
+            background-color: var(--bg-color); 
+            background: radial-gradient(circle at top, #1a0b2e 0%, #0d0d0d 60%);
+            color: var(--text-main); 
+            padding-bottom: 80px; 
+            min-height: 100vh;
+        }
 
-        /* --- HEADER COM VÍDEO --- */
+        /* --- HEADER --- */
         .profile-header {
             position: relative;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
         }
 
@@ -35,6 +42,7 @@
             position: relative;
             overflow: hidden;
             background-color: #000;
+            border-bottom: 2px solid var(--accent-purple);
         }
 
         .banner-video {
@@ -49,7 +57,7 @@
 
         .profile-info {
             position: relative;
-            transform: translateY(-60px); /* Ajuste a altura da foto aqui */
+            transform: translateY(-70px);
             padding: 0 20px;
             z-index: 10;
         }
@@ -60,9 +68,9 @@
             height: 120px;
             margin: 0 auto 10px auto;
             border-radius: 50%;
-            padding: 3px;
+            padding: 4px;
             background: linear-gradient(45deg, var(--accent-purple), var(--accent-glow));
-            box-shadow: 0 0 25px rgba(138, 43, 226, 0.6);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
             backdrop-filter: blur(5px);
         }
 
@@ -77,98 +85,191 @@
 
         .profile-name {
             font-size: 1.8rem;
-            font-weight: 700;
+            font-weight: 800;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             margin-bottom: 5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
         }
 
-        .verified-badge { color: #3ba9f4; font-size: 1.2rem; }
+        .verified-badge { color: #3ba9f4; font-size: 1.2rem; filter: drop-shadow(0 0 5px #3ba9f4); }
 
         .profile-role {
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             display: inline-block;
-            background: rgba(26, 26, 26, 0.9);
+            background: rgba(255, 255, 255, 0.05);
             padding: 5px 15px;
             border-radius: 20px;
-            border: 1px solid #333;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
         }
 
-        /* --- BOTÕES FLUTUANTES --- */
+        /* --- CATEGORIAS --- */
+        .category-title {
+            max-width: 1200px;
+            margin: 30px auto 15px auto;
+            padding: 0 20px;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-title::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 18px;
+            background-color: var(--accent-glow);
+            box-shadow: 0 0 10px var(--accent-glow);
+            border-radius: 2px;
+        }
+
+        /* --- GRID DE PRODUTOS --- */
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 15px; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; /* 2 Colunas */
+            gap: 15px; 
+        }
+        
+        .card { 
+            background-color: var(--card-bg); 
+            border-radius: 12px; 
+            overflow: hidden; 
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            transition: transform 0.3s, box-shadow 0.3s; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        
+        .card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            border-color: rgba(138, 43, 226, 0.3);
+        }
+        
+        .card-img { 
+            width: 100%; 
+            height: 120px; 
+            background: linear-gradient(45deg, #1f1f1f, #2d2d2d); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+            position: relative;
+        }
+        
+        .card-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+
+        .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+        .card:hover .card-img img { transform: scale(1.05); }
+        
+        .card-content { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; }
+        
+        .card-title { 
+            font-size: 0.95rem; 
+            margin-bottom: 8px; 
+            font-weight: 700; 
+            color: #fff; 
+            line-height: 1.2;
+            min-height: 2.4em;
+        }
+        
+        .card-desc { display: none; } 
+        
+        .btn-group { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+        
+        .btn { 
+            padding: 8px; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            font-size: 0.85rem; 
+            text-align: center; 
+            text-decoration: none; 
+            transition: all 0.3s; 
+            width: 100%; 
+        }
+        
+        .btn-buy { 
+            background: linear-gradient(90deg, #25d366, #1ebd5b);
+            color: #fff; 
+        }
+        
+        .btn-info { background-color: #252525; color: var(--text-main); border: 1px solid #333; }
+        .btn-info:hover { background-color: #333; border-color: var(--accent-purple); color: #fff; }
+
+        .btn-disabled { background-color: #222; color: #555; cursor: not-allowed; border: 1px solid #333; }
+
+        /* --- CONTATOS FLUTUANTES --- */
         .floating-contacts {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 25px;
+            right: 25px;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
             gap: 15px;
             z-index: 999;
         }
-
         .float-btn-insta {
             width: 50px; height: 50px; border-radius: 50%; background: var(--instagram-grad);
             color: white; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            font-size: 1.5rem; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             transition: transform 0.3s;
         }
-        .float-btn-insta:hover { transform: scale(1.1); }
+        .float-btn-insta:hover { transform: scale(1.1) rotate(10deg); }
 
         .float-btn-wa {
             background-color: var(--btn-green); color: white; padding: 12px 20px;
-            border-radius: 30px; text-decoration: none; font-weight: bold;
-            display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            border-radius: 50px; text-decoration: none; font-weight: bold;
+            display: flex; align-items: center; gap: 8px; font-size: 1rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
             transition: transform 0.3s; animation: pulse-green 2s infinite;
         }
-        .float-btn-wa:hover { transform: scale(1.05); background-color: var(--btn-hover); }
+        .float-btn-wa:hover { transform: scale(1.05); }
 
         @keyframes pulse-green {
             0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
             100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
 
-        /* --- GRID DE PRODUTOS --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        /* --- MODAL --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(8px); }
+        .modal-content { background-color: #1a1a1a; padding: 30px; border-radius: 20px; max-width: 90%; width: 500px; text-align: left; position: relative; border: 1px solid rgba(138, 43, 226, 0.5); box-shadow: 0 0 30px rgba(138, 43, 226, 0.3); animation: popIn 0.3s ease; max-height: 80vh; overflow-y: auto; }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         
-        .card { background-color: var(--card-bg); border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: transform 0.3s; display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-5px); }
-        
-        .card-img { width: 100%; height: 180px; background: linear-gradient(45deg, #2b2b2b, #4a148c); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .card-img i { font-size: 3rem; color: rgba(255,255,255,0.2); }
-        
-        .card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-title { font-size: 1.3rem; margin-bottom: 5px; font-weight: bold; }
-        .card-desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
-        
-        .btn-group { display: flex; flex-direction: column; gap: 10px; }
-        .btn { padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; text-align: center; text-decoration: none; transition: all 0.3s; width: 100%; }
-        
-        .btn-buy { background-color: var(--btn-green); color: #fff; box-shadow: 0 0 10px rgba(37, 211, 102, 0.3); }
-        .btn-buy:hover { background-color: var(--btn-hover); box-shadow: 0 0 15px rgba(37, 211, 102, 0.6); }
-        
-        .btn-info { background-color: #333; color: var(--text-main); border: 1px solid #444; }
-        .btn-info:hover { background-color: #444; border-color: var(--accent-purple); }
-
-        /* Modal */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); }
-        .modal-content { background-color: #1a1a1a; padding: 30px; border-radius: 20px; max-width: 90%; width: 400px; text-align: center; position: relative; border: 2px solid transparent; box-shadow: 0 0 20px var(--accent-purple), inset 0 0 20px rgba(138, 43, 226, 0.2); animation: pulseBorder 2s infinite alternate; }
-        @keyframes pulseBorder { 0% { box-shadow: 0 0 15px var(--accent-purple); border-color: var(--accent-purple); } 100% { box-shadow: 0 0 30px var(--accent-glow), 0 0 10px #fff; border-color: var(--accent-glow); } }
-        .modal-close { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; color: #666; }
-        .modal-close:hover { color: #fff; }
+        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #666; transition: 0.3s; }
+        .modal-title { color: var(--accent-glow); margin-bottom: 15px; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+        .modal-text { color: #ccc; line-height: 1.6; font-size: 0.95rem; white-space: pre-wrap; }
+        .modal-text strong { color: #fff; }
 
     </style>
 </head>
 <body>
 
     <div class="profile-header">
-        
         <div class="banner-container">
             <video autoplay muted loop playsinline class="banner-video">
                 <source src="banner.mp4" type="video/mp4">
@@ -190,49 +291,90 @@
 
     <div class="floating-contacts">
         <a href="https://instagram.com/adnz.png" target="_blank" class="float-btn-insta"><i class="fab fa-instagram"></i></a>
-        <a href="https://wa.me/557591879611" target="_blank" class="float-btn-wa"><i class="fab fa-whatsapp"></i> fale comigo</a>
+        <a href="https://wa.me/557591879611" target="_blank" class="float-btn-wa"><i class="fab fa-whatsapp"></i> Suporte</a>
     </div>
 
+    <h2 class="category-title">Serviços & Guilda</h2>
     <div class="container">
-        
         <div class="card">
-            <div class="card-img">
-                <img src="seguidores.jpg" alt="Turbgram Seguidores">
-            </div>
-            <div class="card-content">
-                <h3 class="card-title">Comprar Seguidores</h3>
-                <p class="card-desc">Aumente sua presença digital. Entrega 100% automática e rápida.</p>
-                <div class="btn-group">
-                    <a href="https://w.app/artvibesmm" target="_blank" class="btn btn-buy">Comprar Agora</a>
-                    <button class="btn btn-info" onclick="openModal('Seguidores', 'Nossa plataforma de seguidores entrega automaticamente após o pagamento. Sem queda e com reposição garantida.')">Informações</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-img">
-                <img src="site.jpg" alt="Web Design e Social Media">
-            </div>
+            <div class="card-img"><img src="site.jpg" alt="Web Design"></div>
             <div class="card-content">
                 <h3 class="card-title">Criar Site</h3>
-                <p class="card-desc">Desenvolvimento web profissional, moderno e responsivo.</p>
                 <div class="btn-group">
-                    <a href="https://wa.me/557591879611?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento%20para%20criação%20de%20site." target="_blank" class="btn btn-buy">Solicitar Valor</a>
+                    <a href="https://wa.me/557591879611?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento%20para%20criação%20de%20site." target="_blank" class="btn btn-buy">Orçamento</a>
                     <button class="btn btn-info" onclick="openModal('Criação de Sites', 'Desenvolvemos sites institucionais, landing pages e lojas virtuais. Tecnologias modernas e SEO otimizado.')">Informações</button>
                 </div>
             </div>
         </div>
-
         <div class="card">
-            <div class="card-img">
-                <img src="nyxen.jpg" alt="Nyxen Guilda">
-            </div>
+            <div class="card-img"><img src="nyxen.jpg" alt="Nyxen Guilda"></div>
             <div class="card-content">
                 <h3 class="card-title">Entrar na Guilda</h3>
-                <p class="card-desc">Faça parte da nossa equipe competitiva e jogue com os melhores.</p>
                 <div class="btn-group">
                     <a href="https://wa.me/557591879611?text=Olá,%20quero%20saber%20mais%20sobre%20entrar%20na%20Guilda." target="_blank" class="btn btn-buy">Quero Entrar</a>
                     <button class="btn btn-info" onclick="openModal('Guilda Competitiva', 'Requisitos: Ter experiência em campeonatos, taxa de HS acima de 60% e disponibilidade para treinos noturnos.')">Informações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="category-title">Loja / Disponíveis</h2>
+    <div class="container">
+        <div class="card">
+            <div class="card-img"><img src="seguidores.jpg" alt="Turbgram Seguidores"></div>
+            <div class="card-content">
+                <h3 class="card-title">Comprar Seguidores</h3>
+                <div class="btn-group">
+                    <a href="https://w.app/artvibesmm" target="_blank" class="btn btn-buy">Comprar</a>
+                    <button class="btn btn-info" onclick="openModal('Seguidores', 'Nossa plataforma de seguidores entrega automaticamente após o pagamento. Sem queda e com reposição garantida.')">Informações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-title" style="color: #888;">Em Breve</div>
+    <div class="container">
+        
+        <div class="card" style="opacity: 0.8;">
+            <div class="card-img"><img src="steam_random.png" alt="Steam Keys Aleatórias"></div>
+            <div class="card-content">
+                <h3 class="card-title">KEY STEAM [ALEATÓRIA]</h3>
+                <div class="btn-group">
+                    <button class="btn btn-disabled">Indisponível</button>
+                    <button class="btn btn-info" onclick="openModal('KEY STEAM [ALEATÓRIA]', 'Descubra novos mundos e amplie sua biblioteca com nossas Keys Steam Aleatórias! Receba jogos de grandes franquias e títulos consagrados da indústria gamer, ativáveis em qualquer região do mundo.\n\n• Ampla variedade de jogos.\n• Chaves globais.\n• Garantia de receber jogos com valor de tabela superior ao pago.\n\nAviso:\n• As chaves são aleatórias, não é possível escolher.\n• Sem reembolso se o jogo já existir na sua conta.')">Informações</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="opacity: 0.8;">
+            <div class="card-img"><img src="steam_bronze.png" alt="Steam Key Bronze"></div>
+            <div class="card-content">
+                <h3 class="card-title">KEY STEAM BRONZE [+5 USD]</h3>
+                <div class="btn-group">
+                    <button class="btn btn-disabled">Indisponível</button>
+                    <button class="btn btn-info" onclick="openModal('KEY STEAM BRONZE [+5 USD]', 'Descubra novos mundos com nossas Keys Steam Bronze! Receba jogos de grandes franquias.\n\n• Chaves globais.\n• Garantia de receber jogos com valor superior a 5 USD.\n\nAviso:\n• As chaves são aleatórias, não é possível escolher.\n• Sem reembolso se o jogo já existir na sua conta.')">Informações</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="opacity: 0.8;">
+            <div class="card-img"><img src="steam_silver.png" alt="Steam Key Prata"></div>
+            <div class="card-content">
+                <h3 class="card-title">KEY STEAM PRATA [+10 USD]</h3>
+                <div class="btn-group">
+                    <button class="btn btn-disabled">Indisponível</button>
+                    <button class="btn btn-info" onclick="openModal('KEY STEAM PRATA [+10 USD]', 'KEY STEAM - PRATA\n\nDescubra novos mundos e amplie sua biblioteca com nossas Keys Steam Prata! Receba jogos de grandes franquias e títulos consagrados da indústria gamer, ativáveis em qualquer região do mundo.\n\n• Ampla variedade de jogos.\n• Chaves globais.\n• Garantia de receber sempre jogos com valor superior a 10$.\n\nA emoção está no inesperado! Nunca se sabe qual aventura te espera, mas tenha certeza de que será um game de qualidade.\n\nAviso:\n• As chaves são aleatórias e não é possível escolher o jogo recebido.\n• Caso o jogo já exista em sua biblioteca Steam, não haverá reembolso ou troca.\n• Não realizamos reembolsos por motivo de preferência pessoal.\n• Jogos adquiridos de distribuidoras oficiais.')">Informações</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="opacity: 0.8;">
+            <div class="card-img"><img src="steam_platinum.png" alt="Steam Key Platina"></div>
+            <div class="card-content">
+                <h3 class="card-title">KEY STEAM PLATINA [+25 USD]</h3>
+                <div class="btn-group">
+                    <button class="btn btn-disabled">Indisponível</button>
+                    <button class="btn btn-info" onclick="openModal('KEY STEAM PLATINA [+25 USD]', 'KEY STEAM - PLATINA\n\nDescubra novos mundos e amplie sua biblioteca com nossas Keys Steam Platina! Receba jogos de grandes franquias e títulos consagrados da indústria gamer, ativáveis em qualquer região do mundo.\n\n• Ampla variedade de jogos.\n• Chaves globais.\n• Garantia de receber sempre jogos com valor superior a 25$.\n\nA emoção está no inesperado! Nunca se sabe qual aventura te espera, mas tenha certeza de que será um game de qualidade.\n\nAviso:\n• As chaves são aleatórias e não é possível escolher o jogo recebido.\n• Caso o jogo já exista em sua biblioteca Steam, não haverá reembolso ou troca.\n• Não realizamos reembolsos por motivo de preferência pessoal.\n• Jogos adquiridos de distribuidoras oficiais.')">Informações</button>
                 </div>
             </div>
         </div>
@@ -242,8 +384,8 @@
     <div id="infoModal" class="modal-overlay" onclick="if(event.target===this)this.style.display='none'">
         <div class="modal-content">
             <span class="modal-close" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-            <h2 id="modalTitle" style="color:var(--accent-purple); margin-bottom:15px;"></h2>
-            <p id="modalText" style="color:#ddd; line-height:1.6;"></p>
+            <h2 id="modalTitle"></h2>
+            <p id="modalText" class="modal-text"></p>
         </div>
     </div>
 
