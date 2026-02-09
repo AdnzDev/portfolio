@@ -29,7 +29,6 @@
             text-align: center;
         }
 
-        /* Container do Banner (Vídeo) */
         .banner-container {
             width: 100%;
             height: 200px;
@@ -38,7 +37,6 @@
             background-color: #000;
         }
 
-        /* O Vídeo em si */
         .banner-video {
             width: 100%;
             height: 100%;
@@ -46,13 +44,12 @@
             position: absolute;
             top: 0;
             left: 0;
-            opacity: 0.6; /* Transparência para o texto ficar legível */
+            opacity: 0.6;
         }
 
-        /* Área da Foto e Nome */
         .profile-info {
             position: relative;
-            transform: translateY(-60px);
+            transform: translateY(-60px); /* Ajuste a altura da foto aqui */
             padding: 0 20px;
             z-index: 10;
         }
@@ -101,7 +98,7 @@
             border: 1px solid #333;
         }
 
-        /* --- BOTÕES FLUTUANTES (FIXOS) --- */
+        /* --- BOTÕES FLUTUANTES --- */
         .floating-contacts {
             position: fixed;
             bottom: 20px;
@@ -173,7 +170,8 @@
     <div class="profile-header">
         
         <div class="banner-container">
-            <video autoplay muted loop playsinline class="banner.mp4" type="video/mp4">
+            <video autoplay muted loop playsinline class="banner-video">
+                <source src="banner.mp4" type="video/mp4">
             </video>
         </div>
         
@@ -192,30 +190,29 @@
 
     <div class="floating-contacts">
         <a href="https://instagram.com/adnz.png" target="_blank" class="float-btn-insta"><i class="fab fa-instagram"></i></a>
-        <a href="https://wa.me/557591879611" target="_blank" class="float-btn-wa"><i class="fab fa-whatsapp"></i> Contactar</a>
+        <a href="https://wa.me/557591879611" target="_blank" class="float-btn-wa"><i class="fab fa-whatsapp"></i> fale comigo</a>
     </div>
 
     <div class="container">
+        
         <div class="card">
-          <div class="card-img">
-                <img src="seguidores.jpg" alt="seguidores">
+            <div class="card-img">
+                <img src="seguidores.jpg" alt="Turbgram Seguidores">
             </div>
-            <div class="card-img"><i class="fas fa-users"></i></div>
             <div class="card-content">
                 <h3 class="card-title">Comprar Seguidores</h3>
                 <p class="card-desc">Aumente sua presença digital. Entrega 100% automática e rápida.</p>
                 <div class="btn-group">
-                    <a href="https://w.app/artvibesmm" target="_blank" class="btn btn-buy">Comprar</a>
+                    <a href="https://w.app/artvibesmm" target="_blank" class="btn btn-buy">Comprar Agora</a>
                     <button class="btn btn-info" onclick="openModal('Seguidores', 'Nossa plataforma de seguidores entrega automaticamente após o pagamento. Sem queda e com reposição garantida.')">Informações</button>
                 </div>
             </div>
         </div>
 
         <div class="card">
-          <div class="card-img">
-                <img src="site.jpg" alt="criar site">
+            <div class="card-img">
+                <img src="site.jpg" alt="Web Design e Social Media">
             </div>
-            <div class="card-img"><i class="fas fa-code"></i></div>
             <div class="card-content">
                 <h3 class="card-title">Criar Site</h3>
                 <p class="card-desc">Desenvolvimento web profissional, moderno e responsivo.</p>
@@ -239,6 +236,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <div id="infoModal" class="modal-overlay" onclick="if(event.target===this)this.style.display='none'">
