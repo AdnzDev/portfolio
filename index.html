@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio - Adnz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- ESTILOS GERAIS --- */
+        :root {
+            --bg-color: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --text-main: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent-purple: #8a2be2;
+            --accent-glow: #bf00ff;
+            --btn-green: #25d366;
+            --btn-hover: #1ebd5b;
+            --instagram-grad: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 80px; }
+
+        /* --- HEADER COM VÍDEO --- */
+        .profile-header {
+            position: relative;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        /* Container do Banner (Vídeo) */
+        .banner-container {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        /* O Vídeo em si */
+        .banner-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.6; /* Transparência para o texto ficar legível */
+        }
+
+        /* Área da Foto e Nome */
+        .profile-info {
+            position: relative;
+            transform: translateY(-60px);
+            padding: 0 20px;
+            z-index: 10;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 10px auto;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-glow));
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #0d0d0d;
+            background-color: #333;
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .verified-badge { color: #3ba9f4; font-size: 1.2rem; }
+
+        .profile-role {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: inline-block;
+            background: rgba(26, 26, 26, 0.9);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid #333;
+        }
+
+        /* --- BOTÕES FLUTUANTES (FIXOS) --- */
+        .floating-contacts {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+            z-index: 999;
+        }
+
+        .float-btn-insta {
+            width: 50px; height: 50px; border-radius: 50%; background: var(--instagram-grad);
+            color: white; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
+        }
+        .float-btn-insta:hover { transform: scale(1.1); }
+
+        .float-btn-wa {
+            background-color: var(--btn-green); color: white; padding: 12px 20px;
+            border-radius: 30px; text-decoration: none; font-weight: bold;
+            display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: transform 0.3s; animation: pulse-green 2s infinite;
+        }
+        .float-btn-wa:hover { transform: scale(1.05); background-color: var(--btn-hover); }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* --- GRID DE PRODUTOS --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        
+        .card { background-color: var(--card-bg); border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: transform 0.3s; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-5px); }
+        
+        .card-img { width: 100%; height: 180px; background: linear-gradient(45deg, #2b2b2b, #4a148c); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .card-img i { font-size: 3rem; color: rgba(255,255,255,0.2); }
+        
+        .card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-title { font-size: 1.3rem; margin-bottom: 5px; font-weight: bold; }
+        .card-desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
+        
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+        .btn { padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; text-align: center; text-decoration: none; transition: all 0.3s; width: 100%; }
+        
+        .btn-buy { background-color: var(--btn-green); color: #fff; box-shadow: 0 0 10px rgba(37, 211, 102, 0.3); }
+        .btn-buy:hover { background-color: var(--btn-hover); box-shadow: 0 0 15px rgba(37, 211, 102, 0.6); }
+        
+        .btn-info { background-color: #333; color: var(--text-main); border: 1px solid #444; }
+        .btn-info:hover { background-color: #444; border-color: var(--accent-purple); }
+
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); }
+        .modal-content { background-color: #1a1a1a; padding: 30px; border-radius: 20px; max-width: 90%; width: 400px; text-align: center; position: relative; border: 2px solid transparent; box-shadow: 0 0 20px var(--accent-purple), inset 0 0 20px rgba(138, 43, 226, 0.2); animation: pulseBorder 2s infinite alternate; }
+        @keyframes pulseBorder { 0% { box-shadow: 0 0 15px var(--accent-purple); border-color: var(--accent-purple); } 100% { box-shadow: 0 0 30px var(--accent-glow), 0 0 10px #fff; border-color: var(--accent-glow); } }
+        .modal-close { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; color: #666; }
+        .modal-close:hover { color: #fff; }
+
+    </style>
+</head>
+<body>
+
+    <div class="profile-header">
+        
+        <div class="banner-container">
+            <video autoplay muted loop playsinline class="banner.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <div class="profile-info">
+            <div class="avatar-container">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Perfil" class="avatar">
+            </div>
+            <div class="profile-name">
+                Adnz <i class="fas fa-check-circle verified-badge"></i>
+            </div>
+            <div class="profile-role">
+                <i class="fas fa-laptop-code"></i> Criador / Desenvolvedor
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-contacts">
+        <a href="https://instagram.com/adnz.png" target="_blank" class="float-btn-insta"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/557591879611" target="_blank" class="float-btn-wa"><i class="fab fa-whatsapp"></i> Contactar</a>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-img"><i class="fas fa-users"></i></div>
+            <div class="card-content">
+                <h3 class="card-title">Comprar Seguidores</h3>
+                <p class="card-desc">Aumente sua presença digital. Entrega 100% automática e rápida.</p>
+                <div class="btn-group">
+                    <a href="https://w.app/artvibesmm" target="_blank" class="btn btn-buy">Comprar</a>
+                    <button class="btn btn-info" onclick="openModal('Seguidores', 'Nossa plataforma de seguidores entrega automaticamente após o pagamento. Sem queda e com reposição garantida.')">Informações</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img"><i class="fas fa-code"></i></div>
+            <div class="card-content">
+                <h3 class="card-title">Criar Site</h3>
+                <p class="card-desc">Desenvolvimento web profissional, moderno e responsivo.</p>
+                <div class="btn-group">
+                    <a href="https://wa.me/557591879611?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento%20para%20criação%20de%20site." target="_blank" class="btn btn-buy">Solicitar Valor</a>
+                    <button class="btn btn-info" onclick="openModal('Criação de Sites', 'Desenvolvemos sites institucionais, landing pages e lojas virtuais. Tecnologias modernas e SEO otimizado.')">Informações</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-img">
+                <img src="nyxen.jpg" alt="Nyxen Guilda">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Entrar na Guilda</h3>
+                <p class="card-desc">Faça parte da nossa equipe competitiva e jogue com os melhores.</p>
+                <div class="btn-group">
+                    <a href="https://wa.me/557591879611?text=Olá,%20quero%20saber%20mais%20sobre%20entrar%20na%20Guilda." target="_blank" class="btn btn-buy">Quero Entrar</a>
+                    <button class="btn btn-info" onclick="openModal('Guilda Competitiva', 'Requisitos: Ter experiência em campeonatos, taxa de HS acima de 60% e disponibilidade para treinos noturnos.')">Informações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoModal" class="modal-overlay" onclick="if(event.target===this)this.style.display='none'">
+        <div class="modal-content">
+            <span class="modal-close" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+            <h2 id="modalTitle" style="color:var(--accent-purple); margin-bottom:15px;"></h2>
+            <p id="modalText" style="color:#ddd; line-height:1.6;"></p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(t, x) {
+            document.getElementById('modalTitle').innerText = t;
+            document.getElementById('modalText').innerText = x;
+            document.getElementById('infoModal').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
