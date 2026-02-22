@@ -22,11 +22,31 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         
         body { 
-            background-color: var(--bg-color); 
-            background: radial-gradient(circle at top, #1a0b2e 0%, #0d0d0d 60%);
+            /* Remover o gradiente anterior para usar o fundo de partículas */
+            background-color: #080808; 
             color: var(--text-main); 
             padding-bottom: 80px; 
             min-height: 100vh;
+            /* Opcional: Se quiser esconder barras de rolagem horizontal, ative isso: */
+            overflow-x: hidden; 
+        }
+
+        /* --- FUNDO DE PARTÍCULAS --- */
+        #particles-container {
+            position: fixed; /* Fixed garante que o fundo cubra a tela mesmo ao rolar a página */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #080808; 
+            z-index: -1; /* Fica atrás de tudo */
+        }
+
+        /* --- CONTEÚDO PRINCIPAL (Precisa ficar acima das partículas) --- */
+        .main-content {
+            position: relative;
+            z-index: 1; /* Garante que tudo dentro fique acima do fundo */
+            pointer-events: auto; /* Garante que os cliques funcionem */
         }
 
         /* --- HEADER --- */
@@ -143,7 +163,8 @@
         }
         
         .card { 
-            background-color: var(--card-bg); 
+            /* Deixei o fundo do card levemente translúcido para as partículas aparecerem um pouco através dele */
+            background-color: rgba(22, 22, 22, 0.9); 
             border-radius: 12px; 
             overflow: hidden; 
             border: 1px solid rgba(255,255,255,0.05);
@@ -151,6 +172,7 @@
             transition: transform 0.3s, box-shadow 0.3s; 
             display: flex; 
             flex-direction: column; 
+            backdrop-filter: blur(5px); /* Efeito de vidro */
         }
         
         .card:hover { 
@@ -269,119 +291,121 @@
 </head>
 <body>
 
-    <div class="profile-header">
-        <div class="banner-container">
-            <video autoplay muted loop playsinline class="banner-video">
-                <source src="banner.mp4" type="video/mp4">
-            </video>
-        </div>
-        
-        <div class="profile-info">
-            <div class="avatar-container">
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Perfil" class="avatar">
-            </div>
-            <div class="profile-name">
-                Adnz <i class="fas fa-check-circle verified-badge"></i>
-            </div>
-            <div class="profile-role">
-                <i class="fas fa-laptop-code"></i> Criador / Desenvolvedor
-            </div>
-        </div>
-    </div>
+    <div id="particles-container"></div>
 
-    <div class="floating-contacts">
-        <a href="https://instagram.com/adnz.png" target="_blank" class="float-btn-insta"><i class="fab fa-instagram"></i></a>
-        <a href="https://wa.me/557591879611" target="_blank" class="float-btn-wa"><i class="fab fa-whatsapp"></i> Suporte</a>
-    </div>
-
-    <h2 class="category-title">Serviços & Guilda</h2>
-    <div class="container">
-        <div class="card">
-            <div class="card-img"><img src="site.jpg" alt="Web Design"></div>
-            <div class="card-content">
-                <h3 class="card-title">Criar Site</h3>
-                <div class="btn-group">
-                    <a href="https://wa.me/557591879611?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento%20para%20criação%20de%20site." target="_blank" class="btn btn-buy">Orçamento</a>
-                    <button class="btn btn-info" onclick="openModal('Criação de Sites', 'Desenvolvemos sites institucionais, landing pages e lojas virtuais. Tecnologias modernas e SEO otimizado.')">Informações</button>
+    <div class="main-content">
+        <div class="profile-header">
+            <div class="banner-container">
+                <video autoplay muted loop playsinline class="banner-video">
+                    <source src="banner.mp4" type="video/mp4">
+                </video>
+            </div>
+            
+            <div class="profile-info">
+                <div class="avatar-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Perfil" class="avatar">
                 </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-img"><img src="nyxen.jpg" alt="Nyxen Guilda"></div>
-            <div class="card-content">
-                <h3 class="card-title">Entrar na Guilda</h3>
-                <div class="btn-group">
-                    <a href="https://wa.me/557591879611?text=Olá,%20quero%20saber%20mais%20sobre%20entrar%20na%20Guilda." target="_blank" class="btn btn-buy">Quero Entrar</a>
-                    <button class="btn btn-info" onclick="openModal('Guilda Competitiva', 'Requisitos: Ter experiência em campeonatos, taxa de HS acima de 60% e disponibilidade para treinos noturnos.')">Informações</button>
+                <div class="profile-name">
+                    Adnz <i class="fas fa-check-circle verified-badge"></i>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <h2 class="category-title">Loja / Disponíveis</h2>
-    <div class="container">
-        <div class="card">
-            <div class="card-img"><img src="seguidores.jpg" alt="Turbgram Seguidores"></div>
-            <div class="card-content">
-                <h3 class="card-title">Comprar Seguidores</h3>
-                <div class="btn-group">
-                    <a href="https://w.app/artvibesmm" target="_blank" class="btn btn-buy">Comprar</a>
-                    <button class="btn btn-info" onclick="openModal('Seguidores', 'Nossa plataforma de seguidores entrega automaticamente após o pagamento. Sem queda e com reposição garantida.')">Informações</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="category-title" style="color: #888;">Em Breve</div>
-    <div class="container">
-        
-        <div class="card" style="opacity: 0.8;">
-            <div class="card-img"><img src="steam_random.png" alt="Steam Keys Aleatórias"></div>
-            <div class="card-content">
-                <h3 class="card-title">KEY STEAM [ALEATÓRIA]</h3>
-                <div class="btn-group">
-                    <button class="btn btn-disabled">Indisponível</button>
-                    <button class="btn btn-info" onclick="openModal('KEY STEAM [ALEATÓRIA]', 'Descubra novos mundos e amplie sua biblioteca com nossas Keys Steam Aleatórias! Receba jogos de grandes franquias e títulos consagrados da indústria gamer, ativáveis em qualquer região do mundo.\n\n• Ampla variedade de jogos.\n• Chaves globais.\n• Garantia de receber jogos com valor de tabela superior ao pago.\n\nAviso:\n• As chaves são aleatórias, não é possível escolher.\n• Sem reembolso se o jogo já existir na sua conta.')">Informações</button>
+                <div class="profile-role">
+                    <i class="fas fa-laptop-code"></i> Criador / Desenvolvedor
                 </div>
             </div>
         </div>
 
-        <div class="card" style="opacity: 0.8;">
-            <div class="card-img"><img src="steam_bronze.png" alt="Steam Key Bronze"></div>
-            <div class="card-content">
-                <h3 class="card-title">KEY STEAM BRONZE [+5 USD]</h3>
-                <div class="btn-group">
-                    <button class="btn btn-disabled">Indisponível</button>
-                    <button class="btn btn-info" onclick="openModal('KEY STEAM BRONZE [+5 USD]', 'Descubra novos mundos com nossas Keys Steam Bronze! Receba jogos de grandes franquias.\n\n• Chaves globais.\n• Garantia de receber jogos com valor superior a 5 USD.\n\nAviso:\n• As chaves são aleatórias, não é possível escolher.\n• Sem reembolso se o jogo já existir na sua conta.')">Informações</button>
+        <div class="floating-contacts">
+            <a href="https://instagram.com/adnz.png" target="_blank" class="float-btn-insta"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/557591879611" target="_blank" class="float-btn-wa"><i class="fab fa-whatsapp"></i> Suporte</a>
+        </div>
+
+        <h2 class="category-title">Serviços & Guilda</h2>
+        <div class="container">
+            <div class="card">
+                <div class="card-img"><img src="site.jpg" alt="Web Design"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Criar Site</h3>
+                    <div class="btn-group">
+                        <a href="https://wa.me/557591879611?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento%20para%20criação%20de%20site." target="_blank" class="btn btn-buy">Orçamento</a>
+                        <button class="btn btn-info" onclick="openModal('Criação de Sites', 'Desenvolvemos sites institucionais, landing pages e lojas virtuais. Tecnologias modernas e SEO otimizado.')">Informações</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img"><img src="nyxen.jpg" alt="Nyxen Guilda"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Entrar na Guilda</h3>
+                    <div class="btn-group">
+                        <a href="https://wa.me/557591879611?text=Olá,%20quero%20saber%20mais%20sobre%20entrar%20na%20Guilda." target="_blank" class="btn btn-buy">Quero Entrar</a>
+                        <button class="btn btn-info" onclick="openModal('Guilda Competitiva', 'Requisitos: Ter experiência em campeonatos, taxa de HS acima de 60% e disponibilidade para treinos noturnos.')">Informações</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="card" style="opacity: 0.8;">
-            <div class="card-img"><img src="steam_silver.png" alt="Steam Key Prata"></div>
-            <div class="card-content">
-                <h3 class="card-title">KEY STEAM PRATA [+10 USD]</h3>
-                <div class="btn-group">
-                    <button class="btn btn-disabled">Indisponível</button>
-                    <button class="btn btn-info" onclick="openModal('KEY STEAM PRATA [+10 USD]', 'KEY STEAM - PRATA\n\nDescubra novos mundos e amplie sua biblioteca com nossas Keys Steam Prata! Receba jogos de grandes franquias e títulos consagrados da indústria gamer, ativáveis em qualquer região do mundo.\n\n• Ampla variedade de jogos.\n• Chaves globais.\n• Garantia de receber sempre jogos com valor superior a 10$.\n\nA emoção está no inesperado! Nunca se sabe qual aventura te espera, mas tenha certeza de que será um game de qualidade.\n\nAviso:\n• As chaves são aleatórias e não é possível escolher o jogo recebido.\n• Caso o jogo já exista em sua biblioteca Steam, não haverá reembolso ou troca.\n• Não realizamos reembolsos por motivo de preferência pessoal.\n• Jogos adquiridos de distribuidoras oficiais.')">Informações</button>
+        <h2 class="category-title">Loja / Disponíveis</h2>
+        <div class="container">
+            <div class="card">
+                <div class="card-img"><img src="seguidores.jpg" alt="Turbgram Seguidores"></div>
+                <div class="card-content">
+                    <h3 class="card-title">Comprar Seguidores</h3>
+                    <div class="btn-group">
+                        <a href="https://w.app/artvibesmm" target="_blank" class="btn btn-buy">Comprar</a>
+                        <button class="btn btn-info" onclick="openModal('Seguidores', 'Nossa plataforma de seguidores entrega automaticamente após o pagamento. Sem queda e com reposição garantida.')">Informações</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="card" style="opacity: 0.8;">
-            <div class="card-img"><img src="steam_platinum.png" alt="Steam Key Platina"></div>
-            <div class="card-content">
-                <h3 class="card-title">KEY STEAM PLATINA [+25 USD]</h3>
-                <div class="btn-group">
-                    <button class="btn btn-disabled">Indisponível</button>
-                    <button class="btn btn-info" onclick="openModal('KEY STEAM PLATINA [+25 USD]', 'KEY STEAM - PLATINA\n\nDescubra novos mundos e amplie sua biblioteca com nossas Keys Steam Platina! Receba jogos de grandes franquias e títulos consagrados da indústria gamer, ativáveis em qualquer região do mundo.\n\n• Ampla variedade de jogos.\n• Chaves globais.\n• Garantia de receber sempre jogos com valor superior a 25$.\n\nA emoção está no inesperado! Nunca se sabe qual aventura te espera, mas tenha certeza de que será um game de qualidade.\n\nAviso:\n• As chaves são aleatórias e não é possível escolher o jogo recebido.\n• Caso o jogo já exista em sua biblioteca Steam, não haverá reembolso ou troca.\n• Não realizamos reembolsos por motivo de preferência pessoal.\n• Jogos adquiridos de distribuidoras oficiais.')">Informações</button>
+        <div class="category-title" style="color: #888;">Em Breve</div>
+        <div class="container">
+            
+            <div class="card" style="opacity: 0.8;">
+                <div class="card-img"><img src="steam_random.png" alt="Steam Keys Aleatórias"></div>
+                <div class="card-content">
+                    <h3 class="card-title">KEY STEAM [ALEATÓRIA]</h3>
+                    <div class="btn-group">
+                        <button class="btn btn-disabled">Indisponível</button>
+                        <button class="btn btn-info" onclick="openModal('KEY STEAM [ALEATÓRIA]', 'Descubra novos mundos e amplie sua biblioteca com nossas Keys Steam Aleatórias! Receba jogos de grandes franquias e títulos consagrados da indústria gamer, ativáveis em qualquer região do mundo.\n\n• Ampla variedade de jogos.\n• Chaves globais.\n• Garantia de receber jogos com valor de tabela superior ao pago.\n\nAviso:\n• As chaves são aleatórias, não é possível escolher.\n• Sem reembolso se o jogo já existir na sua conta.')">Informações</button>
+                    </div>
                 </div>
             </div>
+
+            <div class="card" style="opacity: 0.8;">
+                <div class="card-img"><img src="steam_bronze.png" alt="Steam Key Bronze"></div>
+                <div class="card-content">
+                    <h3 class="card-title">KEY STEAM BRONZE [+5 USD]</h3>
+                    <div class="btn-group">
+                        <button class="btn btn-disabled">Indisponível</button>
+                        <button class="btn btn-info" onclick="openModal('KEY STEAM BRONZE [+5 USD]', 'Descubra novos mundos com nossas Keys Steam Bronze! Receba jogos de grandes franquias.\n\n• Chaves globais.\n• Garantia de receber jogos com valor superior a 5 USD.\n\nAviso:\n• As chaves são aleatórias, não é possível escolher.\n• Sem reembolso se o jogo já existir na sua conta.')">Informações</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="opacity: 0.8;">
+                <div class="card-img"><img src="steam_silver.png" alt="Steam Key Prata"></div>
+                <div class="card-content">
+                    <h3 class="card-title">KEY STEAM PRATA [+10 USD]</h3>
+                    <div class="btn-group">
+                        <button class="btn btn-disabled">Indisponível</button>
+                        <button class="btn btn-info" onclick="openModal('KEY STEAM PRATA [+10 USD]', 'KEY STEAM - PRATA\n\nDescubra novos mundos e amplie sua biblioteca com nossas Keys Steam Prata! Receba jogos de grandes franquias e títulos consagrados da indústria gamer, ativáveis em qualquer região do mundo.\n\n• Ampla variedade de jogos.\n• Chaves globais.\n• Garantia de receber sempre jogos com valor superior a 10$.\n\nA emoção está no inesperado! Nunca se sabe qual aventura te espera, mas tenha certeza de que será um game de qualidade.\n\nAviso:\n• As chaves são aleatórias e não é possível escolher o jogo recebido.\n• Caso o jogo já exista em sua biblioteca Steam, não haverá reembolso ou troca.\n• Não realizamos reembolsos por motivo de preferência pessoal.\n• Jogos adquiridos de distribuidoras oficiais.')">Informações</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="opacity: 0.8;">
+                <div class="card-img"><img src="steam_platinum.png" alt="Steam Key Platina"></div>
+                <div class="card-content">
+                    <h3 class="card-title">KEY STEAM PLATINA [+25 USD]</h3>
+                    <div class="btn-group">
+                        <button class="btn btn-disabled">Indisponível</button>
+                        <button class="btn btn-info" onclick="openModal('KEY STEAM PLATINA [+25 USD]', 'KEY STEAM - PLATINA\n\nDescubra novos mundos e amplie sua biblioteca com nossas Keys Steam Platina! Receba jogos de grandes franquias e títulos consagrados da indústria gamer, ativáveis em qualquer região do mundo.\n\n• Ampla variedade de jogos.\n• Chaves globais.\n• Garantia de receber sempre jogos com valor superior a 25$.\n\nA emoção está no inesperado! Nunca se sabe qual aventura te espera, mas tenha certeza de que será um game de qualidade.\n\nAviso:\n• As chaves são aleatórias e não é possível escolher o jogo recebido.\n• Caso o jogo já exista em sua biblioteca Steam, não haverá reembolso ou troca.\n• Não realizamos reembolsos por motivo de preferência pessoal.\n• Jogos adquiridos de distribuidoras oficiais.')">Informações</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-    </div>
-
-    <div id="infoModal" class="modal-overlay" onclick="if(event.target===this)this.style.display='none'">
+    </div> <div id="infoModal" class="modal-overlay" onclick="if(event.target===this)this.style.display='none'">
         <div class="modal-content">
             <span class="modal-close" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
             <h2 id="modalTitle"></h2>
@@ -389,12 +413,74 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
         function openModal(t, x) {
             document.getElementById('modalTitle').innerText = t;
             document.getElementById('modalText').innerText = x;
             document.getElementById('infoModal').style.display = 'flex';
         }
+
+        /* Configuração do fundo de partículas vermelho escuro */
+        particlesJS("particles-container", {
+            "particles": {
+                "number": {
+                    "value": 100,
+                    "density": { "enable": true, "value_area": 800 }
+                },
+                "color": { "value": "#ff3333" }, /* Vermelho Vibrante */
+                "shape": { "type": "circle" },
+                "opacity": {
+                    "value": 0.8, 
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 0.5,
+                        "opacity_min": 0.4,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ff3333", /* Vermelho Vibrante */
+                    "opacity": 0.35,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1.2, 
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" },
+                    "onclick": { "enable": true, "mode": "push" },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 180,
+                        "line_linked": { "opacity": 0.8 }
+                    },
+                    "push": { "particles_nb": 3 }
+                }
+            },
+            "retina_detect": true
+        });
     </script>
 </body>
 </html>
